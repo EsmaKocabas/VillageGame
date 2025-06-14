@@ -22,14 +22,14 @@ namespace Village_Game
         }
     
 
-    public int CompareTo(Item other)
+    public int CompareTo(Item? other)
         {
-            if (other == null) 
-                return 1; // null ile karşılaştırıldığında bu nesne daha büyüktür
-            return this.power.CompareTo(other.power); // power değerine göre karşılaştırma yapar
-       }
+            if (other == null) return 1;
+            // Sadece isme göre karşılaştır
+            return string.Compare(this.name, other.name, StringComparison.OrdinalIgnoreCase);
+        }
 
-    public override string ToString()
+        public override string ToString()
         {
             return $"{name} - {description} (Power: {power})";
         }
