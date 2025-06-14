@@ -1,0 +1,14 @@
+C:\Users\Esma\source\repos\Village_Game\Village_Game\bin\Debug\net8.0\Village_Game.exe
+C:\Users\Esma\source\repos\Village_Game\Village_Game\bin\Debug\net8.0\Village_Game.deps.json
+C:\Users\Esma\source\repos\Village_Game\Village_Game\bin\Debug\net8.0\Village_Game.runtimeconfig.json
+C:\Users\Esma\source\repos\Village_Game\Village_Game\bin\Debug\net8.0\Village_Game.dll
+C:\Users\Esma\source\repos\Village_Game\Village_Game\bin\Debug\net8.0\Village_Game.pdb
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.AssemblyInfoInputs.cache
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.AssemblyInfo.cs
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.csproj.CoreCompileInputs.cache
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.dll
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\refint\Village_Game.dll
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.pdb
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\Village_Game.genruntimeconfig.cache
+C:\Users\Esma\source\repos\Village_Game\Village_Game\obj\Debug\net8.0\ref\Village_Game.dll
