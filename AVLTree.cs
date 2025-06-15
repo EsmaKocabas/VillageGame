@@ -5,14 +5,14 @@ namespace Village_Game
 {
     public class AVLNode<T> where T : IComparable<T>
     {
-        public T Data;
+        public T value;
         public AVLNode<T> Left;
         public AVLNode<T> Right;
         public int Height;
 
-        public AVLNode(T data)
+        public AVLNode(T value)
         {
-            Data = data;
+            this.value = value;
             Height = 1;
         }
     }
@@ -21,43 +21,43 @@ namespace Village_Game
     {
         private AVLNode<T> root;
 
-        public void Insert(T data)
+        public void Insert(T value)
         {
-            root = Insert(root, data);
+            root = Insert(root, value);
         }
 
-        private AVLNode<T> Insert(AVLNode<T> node, T data)
+        private AVLNode<T> Insert(AVLNode<T> node, T value)
         {
             if (node == null)
-                return new AVLNode<T>(data);
+                return new AVLNode<T>(value);
 
-            int compare = data.CompareTo(node.Data);
+            int compare = value.CompareTo(node.value);
             if (compare < 0)
-                node.Left = Insert(node.Left, data);
+                node.Left = Insert(node.Left, value);
             else if (compare > 0)
-                node.Right = Insert(node.Right, data);
+                node.Right = Insert(node.Right, value);
             else
-                return node; // aynı veri eklenmez
+                return node; 
 
             node.Height = 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
             return Balance(node);
         }
 
-        public void Delete(T data)
+        public void Delete(T value)
         {
-            root = Delete(root, data);
+            root = Delete(root, value);
         }
 
-        private AVLNode<T> Delete(AVLNode<T> node, T data)
+        private AVLNode<T> Delete(AVLNode<T> node, T value)
         {
             if (node == null)
                 return null;
 
-            int compare = data.CompareTo(node.Data);
+            int compare = value.CompareTo(node.value);
             if (compare < 0)
-                node.Left = Delete(node.Left, data);
+                node.Left = Delete(node.Left, value);
             else if (compare > 0)
-                node.Right = Delete(node.Right, data);
+                node.Right = Delete(node.Right, value);
             else
             {
                 if (node.Left == null || node.Right == null)
@@ -71,8 +71,8 @@ namespace Village_Game
                 else
                 {
                     AVLNode<T> temp = GetMinValueNode(node.Right);
-                    node.Data = temp.Data;
-                    node.Right = Delete(node.Right, temp.Data);
+                    node.value = temp.value;
+                    node.Right = Delete(node.Right, temp.value);
                 }
             }
 
@@ -88,24 +88,24 @@ namespace Village_Game
             return current;
         }
 
-        public T Search(T data)
+        public T Search(T value)
         {
-            var node = SearchNode(root, data);
-            return node != null ? node.Data : default;
+            var node = SearchNode(root, value);
+            return node != null ? node.value : default;
         }
 
-        private AVLNode<T> SearchNode(AVLNode<T> node, T data)
+        private AVLNode<T> SearchNode(AVLNode<T> node, T value)
         {
             if (node == null)
                 return null;
 
-            int compare = data.CompareTo(node.Data);
+            int compare = value.CompareTo(node.value);
             if (compare == 0)
                 return node;
             else if (compare < 0)
-                return SearchNode(node.Left, data);
+                return SearchNode(node.Left, value);
             else
-                return SearchNode(node.Right, data);
+                return SearchNode(node.Right, value);
         }
 
         public List<T> InOrder()
@@ -119,18 +119,23 @@ namespace Village_Game
         {
             if (node == null) return;
             InOrderTraversal(node.Left, list);
-            list.Add(node.Data);
+            list.Add(node.value);
             InOrderTraversal(node.Right, list);
         }
 
         private int GetHeight(AVLNode<T> node)
         {
-            return node?.Height ?? 0;
+            if (node == null)
+                return 0;
+            return node.Height;
+            
         }
 
         private int GetBalance(AVLNode<T> node)
         {
-            return node == null ? 0 : GetHeight(node.Left) - GetHeight(node.Right);
+            if (node == null)
+                return 0;
+            return GetHeight(node.Left) - GetHeight(node.Right);
         }
 
         private AVLNode<T> Balance(AVLNode<T> node)

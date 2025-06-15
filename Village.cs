@@ -17,7 +17,7 @@ namespace Village_Game
         public Village(string name,ArrayList item)
         {
             this.name = name;
-            this.isRescued = false; //köy başlangıçta kurtarılmamış
+            this.isRescued = false; 
             this.Items = item;
 
         }
@@ -26,7 +26,7 @@ namespace Village_Game
             Console.WriteLine("Köydeki eşyalar:"); 
             foreach (object obj in Items)
             {
-                Item item = (Item)obj; // array list tanımlandıgı için item tipine dönüştürülür
+                Item item = (Item)obj; // array list tanımlandığı için item tipine dönüştürülür
                 Console.WriteLine(item.name+ " Eşya açıklaması: " + item.description + ", Güç: " + item.power);
             }
         }

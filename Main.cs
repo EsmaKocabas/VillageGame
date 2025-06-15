@@ -10,21 +10,23 @@ namespace Village_Game
     {
         static void Main(string[] args)
         {
-            VillageGameManager gameManager = new VillageGameManager();
+            
+            VillageGameManager gameManager = new VillageGameManager(); //oyun yönetimi
 
             Console.WriteLine("İyi Oyunlar");
             while (!gameManager.IsGameComplete())
             {
-                Console.WriteLine("\nBulunduğun Köy: " + gameManager.GetCurrentVillage().name);
 
-                Console.WriteLine("1-Köyde bulunan eşyaları listele");
-                Console.WriteLine("2-Çantadaki eşyaları listele");
+                Console.WriteLine("\nBulunduğun Köy: " + gameManager.GetCurrentVillage().name); 
+
+                Console.WriteLine("1-Köydeki eşyaları göster");
+                Console.WriteLine("2-Çantadaki eşyaları göster");
                 Console.WriteLine("3-Köyleri sırayla kurtar");
                 Console.WriteLine("4-Kurtarılan köyleri göster");
                 Console.WriteLine("5-Kalan köyleri göster");
                 Console.WriteLine("6-Eşyayı kullan veya eşyayı çantadan çıkar");
                 Console.WriteLine("7-Oyun içinde ne kadar ilerledim?");
-                Console.WriteLine("8-Eşyayı ara");
+                Console.WriteLine("8-Eşya ara");
                 Console.WriteLine("9-Oyundan Çık");
 
                 Console.WriteLine("\nHangi işlemi yapmak istersiniz?  1-9 arasında numara girin");
@@ -33,18 +35,18 @@ namespace Village_Game
                 switch (choice)
                 {
                     case "1":
-                        gameManager.GetCurrentVillage().ShowItems();
+                        gameManager.GetCurrentVillage().ShowItems(); 
                         break;
 
                     case "2":
-                        Console.WriteLine("\nEnvanter:");
+                        Console.WriteLine("\nÇantadaki eşyalar:");
                         gameManager.DisplayItems();
                         break;
 
                     case "3":
                         if (gameManager.RescueCurrentVillage())
                         {
-                            Console.WriteLine("\nKöy başarıyla kurtarıldı!");
+                            Console.WriteLine("\nKöy kurtarıldı!");
                             if (gameManager.IsGameComplete())
                             {
                                 Console.WriteLine("\nTebrikler tüm köyler kurtarıldı!");
@@ -60,45 +62,51 @@ namespace Village_Game
                         Console.WriteLine("\nKurtarılan köyler:");
                         foreach (var village in gameManager.GetRescuedVillages())
                         {
-                            Console.WriteLine("- " + village);
+                            Console.WriteLine("=> " + village);
                         }
                         break;
 
                     case "5":
-                        Console.WriteLine("\nKalan Köyler:");
+                        Console.WriteLine("\nKalan köyler:");
                         foreach (var village in gameManager.GetRemainingVillages())
                         {
-                            Console.WriteLine("- " + village);
+                            Console.WriteLine("=> " + village);
                         }
                         break;
 
                     case "6":
                         Console.Write("\nÇıkarmak veya kullanmak istediğiniz eşyanın adını girin: ");
                         string? itemName = Console.ReadLine();
-                        if (string.IsNullOrWhiteSpace(itemName))
+                        if (itemName==null || itemName.Trim()=="")
                         {
                             Console.WriteLine("Lütfen geçerli bir eşya adı girin.");
                             break;
                         }
-                        var removedItem = gameManager.RemoveItemFromInventory(itemName);
+                        var removedItem = gameManager.RemoveItemFromInventory(itemName); // cantadan esya cıkarılır veya kulanılır
                         if (removedItem != null)
                         {
                             Console.WriteLine(removedItem.name + " envanterden çıkarıldı.");
                         }
+                        else
+                        {
+                            Console.WriteLine("Envanterde bulunamadı.");
+                            break;
+                        }
                         break;
+
 
                     case "7":
                         Console.WriteLine("\nOyun ilerlemesi:");
                         Console.WriteLine("Kurtarılan köyler: " + gameManager.GetRescuedVillages().Count);
                         Console.WriteLine("Kalan köyler: " + gameManager.GetRemainingVillages().Count);
-                        // Doğru sayım için Inventory'den alınmalı
-                        Console.WriteLine("Envanterdeki eşyalar: " + gameManager.inventory.GetItemCount());
+                        
+                        Console.WriteLine("Envanterdeki eşyalar: " + gameManager.inventory.ItemCount());
                         break;
 
                     case "8":
                         Console.Write("\nAramak istediğiniz eşyanın adını girin: ");
                         string? searchName = Console.ReadLine();
-                        if (!string.IsNullOrWhiteSpace(searchName))
+                        if (searchName!= null && searchName.Trim() != "")  //eşya adı bos degil ise
                         {
                             gameManager.inventory.SearchItem(searchName);
                         }
@@ -120,7 +128,8 @@ namespace Village_Game
                 }
 
                 Console.WriteLine("\nDevam etmek için herhangi bir tuşa basın");
-                Console.ReadKey();
+                Console.ReadKey();  
+               
             }
         }
     }

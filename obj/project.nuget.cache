@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "lwROrjeCk8c=",
+  "dgSpecHash": "IcRy5/A9UdM=",
   "success": true,
-  "projectFilePath": "/Users/pi/Downloads/Village_Game/Village_Game.csproj",
+  "projectFilePath": "/Users/pi/Downloads/Village_Game/Village_Game/Village_Game.csproj",
   "expectedPackageFiles": [
     "/Users/pi/.nuget/packages/microsoft.netcore.app.ref/8.0.15/microsoft.netcore.app.ref.8.0.15.nupkg.sha512",
     "/Users/pi/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.15/microsoft.aspnetcore.app.ref.8.0.15.nupkg.sha512",

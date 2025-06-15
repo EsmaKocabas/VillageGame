@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/pi/Downloads/Village_Game/Village_Game.csproj": {}
+    "/Users/pi/Downloads/Village_Game/Village_Game/Village_Game.csproj": {}
   },
   "projects": {
-    "/Users/pi/Downloads/Village_Game/Village_Game.csproj": {
+    "/Users/pi/Downloads/Village_Game/Village_Game/Village_Game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/pi/Downloads/Village_Game/Village_Game.csproj",
+        "projectUniqueName": "/Users/pi/Downloads/Village_Game/Village_Game/Village_Game.csproj",
         "projectName": "Village_Game",
-        "projectPath": "/Users/pi/Downloads/Village_Game/Village_Game.csproj",
+        "projectPath": "/Users/pi/Downloads/Village_Game/Village_Game/Village_Game.csproj",
         "packagesPath": "/Users/pi/.nuget/packages/",
-        "outputPath": "/Users/pi/Downloads/Village_Game/obj/",
+        "outputPath": "/Users/pi/Downloads/Village_Game/Village_Game/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/pi/.nuget/NuGet/NuGet.Config"

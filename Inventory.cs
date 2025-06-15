@@ -9,10 +9,9 @@ namespace Village_Game
 {
     public class Inventory
     {
-        private AVLTree<Item> itemTree; // AVL ağacı ile sıralama için
-        private const int maxCapacity = 10; // Envanter kapasitesi
-        public List<Item> Items { get; set; } // Envanterdeki öğeler
-
+        private AVLTree<Item> itemTree; 
+        private const int maxCapacity = 10; 
+        public List<Item> Items { get; set; }
         public int Capacity;
 
         public Inventory()
@@ -26,22 +25,22 @@ namespace Village_Game
         {
             itemTree = new AVLTree<Item>();
             Items = new List<Item>();
-            Capacity = capacity;
+            this.Capacity = capacity;
         }
 
-        // PUSH: Envantere öğe ekle
+       
         public void Push(Item item)
         {
-            if (GetItemCount() >= Capacity)
+            if (ItemCount() >= Capacity)
             {
-                Console.WriteLine("Envanter dolu, öğe eklenemedi.");
+                Console.WriteLine("Çantada yer yok. Eşya eklenemedi");
                 return;
             }
             if (item != null)
             {
-                itemTree.Insert(item);
+                itemTree.Insert(item); //avl ağacına ekleme
                 Items.Add(item);
-                Console.WriteLine($"{item.name} envantere eklendi (push).");
+                Console.WriteLine(item.name + " envantere eklendi.");
             }
             else
             {
@@ -49,51 +48,62 @@ namespace Village_Game
             }
         }
 
-        // POP: Envanterden son eklenen öğeyi çıkar
+        
         public Item? Pop()
         {
             if (Items.Count == 0)
             {
-                Console.WriteLine("Envanter boş. Çıkarılacak eşya yok.");
+                Console.WriteLine("Çantada eşya yok. Çıkarılacak eşya yok.");
                 return null;
             }
             Item item = Items[Items.Count - 1];
             itemTree.Delete(item);
             Items.RemoveAt(Items.Count - 1);
-            Console.WriteLine($"{item.name} envanterden çıkarıldı (pop).");
-            return item;
+            Console.WriteLine(item.name+" envanterden çıkarıldı.");
+            return item; //çıkarılan eşyayı döndurur
         }
 
         public Item? RemoveItem(string itemName)
         {
-            var item = Items.LastOrDefault(i => i.name == itemName);
-            if (item != null)
+            Item? itemToRemove=null;
+            foreach (var item in Items)
             {
-                itemTree.Delete(item);
-                Items.Remove(item);
-                Console.WriteLine($"{itemName} envanterden çıkarıldı.");
-                return item;
+                if (item.name==itemName)
+                {
+                    itemToRemove = item;
+                    
+                }
             }
-            Console.WriteLine($"{itemName} envanterde bulunamadı.");
-            return null;
+            if (itemToRemove != null)
+            {
+                itemTree.Delete(itemToRemove);
+                Items.Remove(itemToRemove); //esya cıkarılır
+                Console.WriteLine(itemToRemove.name + " envanterden çıkarıldı."); 
+                return itemToRemove;
+            }
+            else
+            {
+                Console.WriteLine(itemName+" envanterde bulunamadı.");
+                return null;
+            }
         }
 
         public void SearchItem(string itemName)
         {
-            var item = itemTree.Search(new Item(itemName, "", 0));
+            var item = itemTree.Search(new Item(itemName, "", 0)); //avl agacında search arama yapar
             if (item != null)
             {
-                Console.WriteLine($"{item.name} bulundu: {item.description}");
+                Console.WriteLine(item.name+" bulundu: " +item.description);
             }
             else
             {
-                Console.WriteLine($"{itemName} bulunamadı.");
+                Console.WriteLine(itemName+" bulunamadı.");
             }
         }
 
         public void DisplayItems()
         {
-            List<Item> items = itemTree.InOrder();
+            List<Item> items = itemTree.InOrder(); //ogeleri alır
             Console.WriteLine("Envanterdeki eşyalar:");
             foreach (var item in items)
             {
@@ -103,17 +113,25 @@ namespace Village_Game
 
         public bool UseItem(string itemName)
         {
-            var item = Items.LastOrDefault(i => i.name.Equals(itemName, StringComparison.OrdinalIgnoreCase));
-            if (item != null)
+            Item? itemToUse = null;
+            foreach (var item in Items)
             {
-                itemTree.Delete(item);
-                Items.Remove(item);
-                Console.WriteLine($"{item.name} kullanıldı ve envanterden çıkarıldı.");
+                if (item.name == itemName)
+                {
+                    itemToUse = item;
+                    break;
+                }
+            }
+            if (itemToUse != null)
+            {
+                itemTree.Delete(itemToUse);
+                Items.Remove(itemToUse);
+                Console.WriteLine(itemToUse.name+" kullanıldı ve envanterden çıkarıldı.");
                 return true;
             }
             else
             {
-                Console.WriteLine($"{itemName} envanterde bulunamadı, kullanılamadı.");
+                Console.WriteLine(itemName+" envanterde bulunamadığı için kullanılamadı.");
                 return false;
             }
         }
@@ -123,14 +141,15 @@ namespace Village_Game
             Console.WriteLine("Envanterdeki öğeler (alfabetik sıra):");
             foreach (var item in items)
             {
-                Console.WriteLine("- " + item.name);
+                Console.WriteLine(" - " + item.name);
             }
         }
         
-        public int GetItemCount()
+        public int ItemCount()
         {
             return itemTree.InOrder().Count;
         }
+
         public void RemoveOldestItem()
         {
             if (Items.Count == 0)
@@ -141,7 +160,7 @@ namespace Village_Game
             Item oldest = Items[0];
             itemTree.Delete(oldest);
             Items.RemoveAt(0);
-            Console.WriteLine($"Envanter dolu olduğu için {oldest.name} otomatik olarak silindi.");
+            Console.WriteLine("Envanter dolu olduğu için " + oldest.name + " silindi.");
         }
     }
 }

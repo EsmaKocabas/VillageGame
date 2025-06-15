@@ -11,8 +11,8 @@ namespace Village_Game
     {
         public Village? currentVillage;
         public Inventory inventory;
-        public ArrayList rescuedVillages = new ArrayList(); // Kurtarılan köylerin listesi
-        public Queue<Village> villageQueue = new Queue<Village>(); // Köylerin kuyruğu
+        public ArrayList rescuedVillages = new ArrayList(); 
+        public Queue<Village> villageQueue = new Queue<Village>(); 
 
         public VillageGameManager()
         {
@@ -60,10 +60,13 @@ namespace Village_Game
                 throw new InvalidOperationException("Köy kuyruğu boş");
         }
 
-        public Village GetCurrentVillage()
+        public Village? GetCurrentVillage()
         {
             if (currentVillage == null)
-                throw new InvalidOperationException("Köy seçilmedi");
+            {
+                Console.WriteLine("Şu anda bir köy yok.");
+                return null;
+            }
             return currentVillage;
         }
 
@@ -83,7 +86,7 @@ namespace Village_Game
         public void DisplayItems()
         {
             inventory.DisplayItems();
-            Console.WriteLine("Envanterdeki eşyalar: " + inventory.GetItemCount() + "/" + inventory.Capacity);
+            Console.WriteLine("Envanterdeki eşyalar: " + inventory.ItemCount() + "/" + inventory.Capacity);
         }
 
         public bool AddItemToInventory(Item item)
@@ -91,7 +94,7 @@ namespace Village_Game
             if (inventory == null)
                 throw new InvalidOperationException("Envanter oluşturulmadı.");
 
-            if (inventory.GetItemCount() >= inventory.Capacity)
+            if (inventory.ItemCount() >= inventory.Capacity)
             {
                 Console.WriteLine("Envanter dolu, " + item.name + " eklenemedi.");
                 return false;
@@ -103,9 +106,9 @@ namespace Village_Game
 
         public Item? RemoveItemFromInventory(string itemName)
         {
-            Console.WriteLine($"'{itemName}' isimli eşyayı envanterden çıkarmak istiyorsunuz...");
+            Console.WriteLine(itemName + " isimli eşyayı envanterden çıkarmak istiyorsunuz...");
             DisplayItems();
-            if (inventory == null || inventory.GetItemCount() == 0)
+            if (inventory == null || inventory.ItemCount() == 0)
             {
                 Console.WriteLine("Envanter boş. Çıkarılacak eşya yok.");
                 return null;
@@ -114,7 +117,7 @@ namespace Village_Game
             Item? itemToRemove = inventory.RemoveItem(itemName);
             if (itemToRemove == null)
             {
-                Console.WriteLine($"'{itemName}' isimli eşya envanterde bulunamadı.");
+                Console.WriteLine(itemName + " isimli eşya envanterde bulunamadı.");
                 return null;
             }
             return itemToRemove;
@@ -122,7 +125,7 @@ namespace Village_Game
 
         public Item? RemoveLastItemFromInventory()
         {
-            if (inventory == null || inventory.GetItemCount() == 0)
+            if (inventory == null || inventory.ItemCount() == 0)
             {
                 Console.WriteLine("Envanter boş. Çıkarılacak eşya yok.");
                 return null;
@@ -138,20 +141,30 @@ namespace Village_Game
             
             if (currentVillage.name == "Vadi Köyü")
             {
-                bool hasBalta = inventory.Items.Any(item => item.name == "Kılıç");
-                bool hasIksir = inventory.Items.Any(item => item.name == "Yiyecek");
+                bool hasKilic = false;
+                bool hasYiyecek = false;
+                foreach (Item item in inventory.Items)
+                {
+                    if (item.name == "Kılıç")
+                        hasKilic = true;
+                    else if (item.name == "Yiyecek")
+                        hasYiyecek = true;
 
-                if (!hasBalta || !hasIksir)
+                        if(hasKilic && hasYiyecek)
+                            break;
+                }
+
+                if(!hasKilic || !hasYiyecek)
                 {
                     Console.WriteLine("Vadi Köyü'nü kurtarmak için envanterde hem Kılıç hem de Yiyecek olmalı!");
                     return false;
                 }
 
-                // Kılıç ve Yiyecek kullanılıyor
+
                 inventory.UseItem("Kılıç");
                 inventory.UseItem("Yiyecek");
 
-                // Son eklenen iki itemi sil (pop)
+                
                 inventory.Pop();
                 inventory.Pop();
 
@@ -159,23 +172,41 @@ namespace Village_Game
             }
 
 
-            // 5. köy: Ova Köyü
+            
             if (currentVillage.name == "Ova Köyü")
             {
-                bool hasBalta = inventory.Items.Any(item => item.name == "Altın");
-                bool hasIksir = inventory.Items.Any(item => item.name == "Bıçak");
+                bool hasAltin = false;
+                bool hasBicak = false;
+                foreach (Item item in inventory.Items)
+                {
+                    if (item.name == "Altın")
+                        hasAltin = true;
+                    else if (item.name == "Bıçak")
+                        hasBicak = true;
 
-                if (!hasBalta || !hasIksir)
+                    if (hasAltin && hasBicak)
+                        break;
+                }
+
+                if (!hasAltin || !hasBicak)
                 {
                     Console.WriteLine("Ova Köyü'nü kurtarmak için envanterde hem Altın hem de Bıçak olmalı!");
                     return false;
                 }
+                // bool hasBalta = inventory.Items.Any(item => item.name == "Altın");
+                // bool hasIksir = inventory.Items.Any(item => item.name == "Bıçak");
 
-                // Altın ve Bıçak kullanılıyor
+                // if (!hasBalta || !hasIksir)
+                // {
+                //     Console.WriteLine("Ova Köyü'nü kurtarmak için envanterde hem Altın hem de Bıçak olmalı!");
+                //     return false;
+                // }
+
+
                 inventory.UseItem("Altın");
                 inventory.UseItem("Bıçak");
 
-                // Son eklenen iki itemi sil (pop)
+                
                 inventory.Pop();
                 inventory.Pop();
 
@@ -183,20 +214,38 @@ namespace Village_Game
             }
             if (currentVillage.name == "Göl Köyü")
             {
-                bool hasBalta = inventory.Items.Any(item => item.name == "Balta");
-                bool hasIksir = inventory.Items.Any(item => item.name == "Kalkan");
+                bool hasBalta = false;
+                bool hasKalkan = false;
+                foreach (Item item in inventory.Items)
+                {
+                    if (item.name == "Balta")
+                        hasBalta = true;
+                    else if (item.name == "Kalkan")
+                        hasKalkan = true;
 
-                if (!hasBalta || !hasIksir)
+                    if (hasBalta && hasKalkan)
+                        break;
+                }
+
+                if (!hasBalta || !hasKalkan)
                 {
                     Console.WriteLine("Göl Köyü'nü kurtarmak için envanterde hem Balta hem de Kalkan olmalı!");
                     return false;
                 }
+                // bool hasBalta = inventory.Items.Any(item => item.name == "Balta");
+                // bool hasIksir = inventory.Items.Any(item => item.name == "Kalkan");
 
-                // Balta ve Kalkan kullanılıyor
+                // if (!hasBalta || !hasIksir)
+                // {
+                //     Console.WriteLine("Göl Köyü'nü kurtarmak için envanterde hem Balta hem de Kalkan olmalı!");
+                //     return false;
+                // }
+
+
                 inventory.UseItem("Balta");
                 inventory.UseItem("Kalkan");
 
-                // Son eklenen iki itemi sil (pop)
+              
                 inventory.Pop();
                 inventory.Pop();
 
@@ -205,7 +254,7 @@ namespace Village_Game
 
             foreach (Object obj in currentVillage.Items)
             {
-                if (inventory.GetItemCount() >= inventory.Capacity)
+                if (inventory.ItemCount() >= inventory.Capacity)
                 {
                     Console.WriteLine("Envanter dolu, daha fazla eşya eklenemedi.");
                     Console.WriteLine("Envanter dolu olduğu için en eski öğe otomatik olarak siliniyor.");
@@ -240,9 +289,7 @@ namespace Village_Game
 
             return true;
         }
-
-
-        // Oyun bitti mi kontrol et
+       
         public bool IsGameComplete()
         {
             return villageQueue.Count == 0;
