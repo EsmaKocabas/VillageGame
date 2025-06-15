@@ -31,7 +31,7 @@ namespace Village_Game
 
         public override string ToString()
         {
-            return ("Name: " + name + ", Description: " + description + ", Power: " + power);
+            return ("İsim: " + name + ", Açıklama: " + description + ", Güç: " + power);
         }
     }
 }

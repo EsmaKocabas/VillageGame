@@ -164,9 +164,6 @@ namespace Village_Game
                 inventory.UseItem("Kılıç");
                 inventory.UseItem("Yiyecek");
 
-                
-                inventory.Pop();
-                inventory.Pop();
 
                 Console.WriteLine("Kılıç ve Yiyecek kullanıldı ve envanterden çıkarıldı.");
             }
@@ -193,25 +190,15 @@ namespace Village_Game
                     Console.WriteLine("Ova Köyü'nü kurtarmak için envanterde hem Altın hem de Bıçak olmalı!");
                     return false;
                 }
-                // bool hasBalta = inventory.Items.Any(item => item.name == "Altın");
-                // bool hasIksir = inventory.Items.Any(item => item.name == "Bıçak");
-
-                // if (!hasBalta || !hasIksir)
-                // {
-                //     Console.WriteLine("Ova Köyü'nü kurtarmak için envanterde hem Altın hem de Bıçak olmalı!");
-                //     return false;
-                // }
-
-
+                
                 inventory.UseItem("Altın");
                 inventory.UseItem("Bıçak");
-
-                
-                inventory.Pop();
-                inventory.Pop();
+            
 
                 Console.WriteLine("Altın ve Bıçak kullanıldı ve envanterden çıkarıldı.");
             }
+
+            
             if (currentVillage.name == "Göl Köyü")
             {
                 bool hasBalta = false;
@@ -232,25 +219,14 @@ namespace Village_Game
                     Console.WriteLine("Göl Köyü'nü kurtarmak için envanterde hem Balta hem de Kalkan olmalı!");
                     return false;
                 }
-                // bool hasBalta = inventory.Items.Any(item => item.name == "Balta");
-                // bool hasIksir = inventory.Items.Any(item => item.name == "Kalkan");
-
-                // if (!hasBalta || !hasIksir)
-                // {
-                //     Console.WriteLine("Göl Köyü'nü kurtarmak için envanterde hem Balta hem de Kalkan olmalı!");
-                //     return false;
-                // }
-
 
                 inventory.UseItem("Balta");
                 inventory.UseItem("Kalkan");
 
-              
-                inventory.Pop();
-                inventory.Pop();
-
                 Console.WriteLine("Balta ve Kalkan kullanıldı ve envanterden çıkarıldı.");
             }
+
+
 
             foreach (Object obj in currentVillage.Items)
             {
