@@ -13,7 +13,7 @@ namespace Village_Game
             
             VillageGameManager gameManager = new VillageGameManager(); //oyun yönetimi
 
-            Console.WriteLine("İyi Oyunlar");
+            Console.WriteLine("Köy Kurtarma Oyununa Hoş Geldiniz!");
             while (!gameManager.IsGameComplete())
             {
 
@@ -60,10 +60,10 @@ namespace Village_Game
 
                     case "4":
                         Console.WriteLine("\nKurtarılan köyler:");
-                        foreach (var village in gameManager.GetRescuedVillages())
+                        foreach (var village in gameManager.GetRescuedVillages()) 
                         {
                             Console.WriteLine("=> " + village);
-                        }
+                        } //kurtarılan köyler listelenir
                         break;
 
                     case "5":
